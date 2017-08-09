@@ -6,8 +6,8 @@ do
 	flavor) FLAVOR=${OPTARG};;
     esac
 done
-
-if FLAVOR="1"
+echo $FLAVOR
+if [$FLAVOR="1"] then
 	username="ubuntu"
 
 	# install packages
@@ -63,8 +63,11 @@ P_RETVAL=$?
 # clean up
 apt-get clean
 
-else if FLAVOR="2"
+elif [$FLAVOR="2"] then
 	username="centos"
+puts "Username PWD:"
+PWD = STDIN.gets.chomp
+echo "centos:$PWD" | chpasswd    
 yum update
 # install packages
 yum install ansible unzip
@@ -110,7 +113,7 @@ P_RETVAL=$?
 
 # clean up
 yum clean all
-
-
+else
+	echo "Failure!"
 
 fi
